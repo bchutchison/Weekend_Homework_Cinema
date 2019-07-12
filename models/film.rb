@@ -12,7 +12,6 @@ def initialize( options )
 end
 
 
-
 def customers()
   sql = "SELECT customers.* FROM customers
   INNER JOIN tickets
@@ -21,6 +20,11 @@ def customers()
   values = [@id]
   customers = SqlRunner.run(sql, values)
   return customers.map{|customer| Customer.new(customer)}
+end
+
+#returns the number of customers going to a certain film. Calls .size on the array which is output from the def customers() method.
+def num_of_customers()
+  customers.size
 end
 
 def save()

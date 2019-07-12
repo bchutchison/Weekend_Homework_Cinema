@@ -1,4 +1,5 @@
 require_relative('../db/sql_runner.rb')
+require_relative('ticket.rb')
 
 class Customer
 
@@ -12,20 +13,24 @@ def initialize( options )
 end
 
 def buy_ticket(film)
-  sql = "UPDATE customers SET
-  funds = $1 WHERE id = $2"
-  new_funds = @funds - film.price
-  values = [new_funds, @id]
-  SqlRunner.run(sql, values)
+  @funds -= film.price
+  update
+  # sql = "UPDATE customers SET
+  # funds = $1 WHERE id = $2"
+  # new_funds = @funds - film.price
+  # values = [new_funds, @id]
+  # SqlRunner.run(sql, values)
 end
 
-# def num_of_tickets()
-#   sql = "SELECT COUNT(DISTINCT customer_id) FROM tickets
-#   WHERE $1"
-#   values = [@id]
-#   SqlRunner.run(sql, values)
-#   # return Customer.new(tickets)
-# end
+def num_of_tickets()
+  # sql = "SLECT * FROM customers WHERE id = $1"
+  # # sql = "SELECT COUNT(DISTINCT customer_id) FROM tickets
+  # # WHERE $1"
+  # values = [@id]
+  # SqlRunner.run(sql, values).size
+  # return Customer.new(tickets)
+  tickets.length
+end
 
 
 def update()
@@ -48,6 +53,14 @@ def films
   values = [@id]
   films = SqlRunner.run(sql, values)
   return films.map{|film| Film.new(film)}
+end
+
+def tickets()
+  sql = "SELECT * FROM tickets
+  WHERE customer_id = $1"
+  values = [@id]
+  tickets = SqlRunner.run(sql, values)
+  return tickets.map{|ticket|Ticket.new(ticket)}
 end
 
 def save()
