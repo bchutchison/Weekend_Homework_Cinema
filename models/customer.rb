@@ -43,5 +43,12 @@ def delete()
  SqlRunner.run(sql, values)
 end
 
+def self.all()
+  sql = "SELECT * FROM customers"
+  customer_hashes = SqlRunner.run(sql)
+  customers = customer_hashes.map { |customer| Customer.new( customer ) }
+  return customers
+end
+
 
 end
