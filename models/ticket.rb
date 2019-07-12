@@ -13,6 +13,22 @@ def initialize( options )
   @film_id = options ['film_id'].to_i
 end
 
+def film()
+  sql = "SELECT * FROM tickets
+  WHERE id = $1"
+  values = [@film_id]
+  film = SqlRunner.run(sql, values).first
+  return Film.new(film)
+end
+
+def customer()
+  sql = "SELECT * FROM customers
+  WHERE id = $1"
+  values = [@customer_id]
+  customer = SqlRunner.run(sql, values).first
+  return Customer.new(star)
+end
+
 def save()
   sql = "INSERT INTO tickets
   (customer_id, film_id)

@@ -11,6 +11,16 @@ def initialize( options )
   @funds = options ['funds'].to_i
 end
 
+def films
+  sql = "SELECT films.* FROM films
+  INNER JOIN tickets
+  ON tickets.film_id = films.id
+  WHERE tickets.customer_id = $1"
+  values = [@id]
+  films = SqlRunner.run(sql, values)
+  return films.map{|film| Film.new(film)}
+end
+
 def save()
   sql = "INSERT INTO customers
   (name, funds)
