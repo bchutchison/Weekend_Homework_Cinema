@@ -13,6 +13,7 @@ def initialize( options )
   @film_id = options ['film_id'].to_i
 end
 
+
 def film()
   sql = "SELECT * FROM tickets
   WHERE id = $1"

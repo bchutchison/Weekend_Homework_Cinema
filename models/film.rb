@@ -11,7 +11,9 @@ def initialize( options )
   @price = options ['price'].to_i
 end
 
-def customers
+
+
+def customers()
   sql = "SELECT customers.* FROM customers
   INNER JOIN tickets
   ON tickets.customer_id = customers.id

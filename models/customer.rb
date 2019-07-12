@@ -11,6 +11,35 @@ def initialize( options )
   @funds = options ['funds'].to_i
 end
 
+def buy_ticket(film)
+  sql = "UPDATE customers SET
+  funds = $1 WHERE id = $2"
+  new_funds = @funds - film.price
+  values = [new_funds, @id]
+  SqlRunner.run(sql, values)
+end
+
+# def num_of_tickets()
+#   sql = "SELECT COUNT(DISTINCT customer_id) FROM tickets
+#   WHERE $1"
+#   values = [@id]
+#   SqlRunner.run(sql, values)
+#   # return Customer.new(tickets)
+# end
+
+
+def update()
+  sql = "UPDATE customers SET
+  (name, funds)
+  =
+  ($1, $2)
+  WHERE id = $3"
+  values = [@name, @funds, @id]
+  SqlRunner.run(sql, values)
+end
+
+
+#returns all films linked to customer when run => customer.films
 def films
   sql = "SELECT films.* FROM films
   INNER JOIN tickets
@@ -32,15 +61,6 @@ def save()
   @id = customer['id'].to_i
 end
 
-def update()
-  sql = "UPDATE customers SET
-  (name, funds)
-  =
-  ($1, $2)
-  WHERE id = $3"
-  values = [@name, @funds, @id]
-  SqlRunner.run(sql, values)
-end
 
 def self.delete_all()
  sql = "DELETE FROM customers"
