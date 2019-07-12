@@ -19,7 +19,7 @@ def save()
   ($1, $2)
   RETURNING id"
   values = [@film_time, @film_id]
-  customer = SqlRunner.run( sql, values ).first
+  screening = SqlRunner.run( sql, values ).first
   @id = screening['id'].to_i
 end
 

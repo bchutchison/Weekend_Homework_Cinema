@@ -47,6 +47,12 @@ customer3 = Customer.new({
   })
 customer3.save()
 
+screening1 = Screening.new({
+'film_time' => '18:00',
+'film_id' => film3.id
+  })
+screening1.save()
+
 
 ticket1 = Ticket.new({
 'customer_id' => customer1.id,
@@ -78,11 +84,7 @@ ticket5 = Ticket.new({
   })
 ticket5.save()
 
-screening1 = Screening.new({
-'film_time' => '18:00',
-'film_id' => film3.id
-  })
-screening1.save()
+
 
 
 
