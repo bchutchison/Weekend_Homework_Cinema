@@ -44,6 +44,30 @@ def delete()
  SqlRunner.run(sql, values)
 end
 
+def self.all()
+  sql = "SELECT * FROM screenings"
+  sc sreening_hashes = SqlRunner.run(sql)
+  screenings = screening_hashes.map { |screening| Screening.new( screening ) }
+  return screenings
+end
+
+#moved from film.rb following refactoring. Returns all of the customers who are going to a specified screening. ***   How does this reference the film when i call screening1.customers?   ***
+def customers()
+  sql = "SELECT customers.* FROM customers
+  INNER JOIN tickets
+  ON tickets.customer_id = customers.id
+  WHERE tickets.screening_id = $1"
+  values = [@id]
+  customers = SqlRunner.run(sql, values)
+  return customers.map{|customer| Customer.new(customer)}
+end
+
+#returns the number of customers going to a certain film. Calls .size on the array which is output from the def customers() method. Moved from film.rb
+def num_of_customers()
+  customers.size
+end
+
+
 
 
 

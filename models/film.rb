@@ -1,4 +1,5 @@
 require_relative('../db/sql_runner.rb')
+require_relative('screening')
 
 class Film
 
@@ -9,22 +10,6 @@ def initialize( options )
   @id = options['id'].to_i if options['id']
   @title = options ['title']
   @price = options ['price'].to_i
-end
-
-
-def customers()
-  sql = "SELECT customers.* FROM customers
-  INNER JOIN tickets
-  ON tickets.customer_id = customers.id
-  WHERE tickets.film_id = $1"
-  values = [@id]
-  customers = SqlRunner.run(sql, values)
-  return customers.map{|customer| Customer.new(customer)}
-end
-
-#returns the number of customers going to a certain film. Calls .size on the array which is output from the def customers() method.
-def num_of_customers()
-  customers.size
 end
 
 def save()
@@ -65,6 +50,18 @@ def self.all()
   films = film_hashes.map { |film| Film.new( film ) }
   return films
 end
+
+
+# ***   why does this return 6 lines when called - film1.film_screening_time -- ?/
+def film_screening_time()
+  sql = "SELECT screenings.film_time FROM screenings
+  INNER JOIN films
+  ON screenings.film_id = $1"
+  values = [@id]
+  time_hashes = SqlRunner.run(sql, values)
+  return time_hashes.map{|time| Screening.new(time)}
+end
+
 
 
 end

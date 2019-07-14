@@ -55,6 +55,7 @@ def films
   return films.map{|film| Film.new(film)}
 end
 
+#returns all the tikets associated with a customer
 def tickets()
   sql = "SELECT * FROM tickets
   WHERE customer_id = $1"
@@ -86,6 +87,7 @@ def delete()
  SqlRunner.run(sql, values)
 end
 
+#returns all the customers
 def self.all()
   sql = "SELECT * FROM customers"
   customer_hashes = SqlRunner.run(sql)
