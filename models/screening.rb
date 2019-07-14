@@ -77,13 +77,6 @@ def num_of_customers()
 end
 
 
-# def most_popular_screening()
-#   sql = "SELECT * FROM screening
-#   WHERE"
-# end
-
-
-
 
 
 

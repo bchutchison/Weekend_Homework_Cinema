@@ -70,5 +70,33 @@ def self.all()
   return tickets
 end
 
+#MOST POPULAR SCREEN TIME
+#*** when we return a hash of results from the database, and before it is passed into the class, what does it look like? How is it processed by the iteration? *last line below.
+def self.most_popular_screening()
+  sql = "SELECT screenings.* FROM screenings
+  INNER JOIN tickets
+  ON screenings.id = tickets.screening_id"
+  screening_hash = SqlRunner.run(sql)
+  array = screening_hash.map{|screen_time| Screening.new(screen_time)}
+  p array
+
+  # array.group_by { |_,v| v }.max_by{|_,v| v.size}.first
+  # array.max_by { |i| array.count(i) }
+
+  # most_frequent_item = array.uniq.max_by{ | i | array.count( i ) }
+  # puts most_frequent_item
+end
+
+
+def self.most_popular_screening2()
+array = self.all
+# array.group_by { |_,v| v }.max_by{|_,v| v.size}.first
+# array.max_by { |i| array.count(i) }
+end
+
+# h = Hash["a","foo", "b","bar", "c","foo"]
+# h.group_by { |_,v| v }.max_by{|_,v| v.size}.first
+# # >> "foo"
+
 
 end
