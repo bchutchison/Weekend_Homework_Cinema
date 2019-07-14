@@ -44,12 +44,20 @@ def delete()
  SqlRunner.run(sql, values)
 end
 
+#Returns all screenings. ***error message -
+# [8] pry(main)> Screening.all
+# NameError: undefined local variable or method `screening_hash' for Screening:Class
+# Did you mean?  sreening_hash
+#                screenings
+# from /Users/benhutchison/codeclan_work/week_03/day_5/weekend_homework/models/screening.rb:51:in `all'
 def self.all()
   sql = "SELECT * FROM screenings"
-  sc sreening_hashes = SqlRunner.run(sql)
-  screenings = screening_hashes.map { |screening| Screening.new( screening ) }
+  hash = SqlRunner.run(sql)
+  screenings = hash.map { |screen| Screening.new(screen) }
   return screenings
 end
+
+
 
 #moved from film.rb following refactoring. Returns all of the customers who are going to a specified screening. ***   How does this reference the film when i call screening1.customers?   ***
 def customers()
@@ -62,10 +70,18 @@ def customers()
   return customers.map{|customer| Customer.new(customer)}
 end
 
+
 #returns the number of customers going to a certain film. Calls .size on the array which is output from the def customers() method. Moved from film.rb
 def num_of_customers()
   customers.size
 end
+
+
+# def most_popular_screening()
+#   sql = "SELECT * FROM screening
+#   WHERE"
+# end
+
 
 
 

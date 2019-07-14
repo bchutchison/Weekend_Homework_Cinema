@@ -53,18 +53,23 @@ screening1 = Screening.new({
   })
 screening1.save()
 
-screening3 = Screening.new({
-'film_time' => '22:00',
-'film_id' => film1.id
-  })
-screening3.save()
-
 screening2 = Screening.new({
 'film_time' => '20:00',
 'film_id' => film2.id
   })
 screening2.save()
 
+screening3 = Screening.new({
+'film_time' => '22:00',
+'film_id' => film1.id
+  })
+screening3.save()
+
+screening4 = Screening.new({
+'film_time' => '00:00',
+'film_id' => film3.id
+  })
+screening4.save()
 
 ticket1 = Ticket.new({
 'customer_id' => customer1.id,
